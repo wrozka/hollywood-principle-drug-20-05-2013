@@ -145,7 +145,8 @@ end
         </section>
 
         <section>
-          <h2>Entry points</h2>
+          <section>
+            <h2>Entry points</h2>
 <pre><code class="ruby">def room_assignments
   RoomAssignments.new(person_repository, room_repository)
 end</code></pre>
@@ -155,11 +156,22 @@ end</code></pre>
 end</code></pre>
 
 <pre class="fragment"><code class="ruby">inject :room_assignments</code></pre>
+          </section>
+          <section>
+            <h3>a little bit of config</h3>
+<pre><code class="ruby">class ApplicationController
+  extend Dependor::Injectable
+
+  def injector
+    Injector.new(current_trip)
+  end
+end</code></pre>
+
+          </section>
         </section>
 
         <section>
-          <section>
-            <h2>Constructors</h2>
+          <h2>Constructors</h2>
 <pre><code class="ruby">class RoomAssignments
   def initalize(person_repository, rooms_repository)
     @person_repository = person_repository
@@ -174,25 +186,12 @@ end</code></pre>
 <pre class="fragment"><code class="ruby">class RoomAssignments
   takes :person_repository, :room_repository
 end</code></pre>
-          </section>
-          <section>
-          <h3>a little bit of config</h3>
-<pre><code class="ruby">class ApplicationController
-  extend Dependor::Injectable
-
-  def injector
-    Injector.new(current_trip)
-  end
-end</code></pre>
-
-          </section>
         </section>
 
         <section>
           <h2>Summary</h2>
           <ul>
             <li class="fragment"><a href="http://github.com/psyho/dependor">dependor on github</a></li>
-            <li class="fragment">constructor based dependency injection</li>
             <li class="fragment">makes dependecies visible</li>
             <li class="fragment">loose coupling always helps with testing</li>
             <li class="fragment">emphasies composability</li>
