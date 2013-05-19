@@ -63,6 +63,17 @@
         <section>
           <h2>Users resource</h2>
           <p>repository</p>
+          <pre><code class="ruby">class PeopleController
+  def create
+    user_repository.add(params)
+  end
+
+  private
+
+  def user_repository
+    UserRepository.new(current_trip)
+  end
+end</code></pre>
         </section>
 
         <section>
