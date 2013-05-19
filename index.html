@@ -47,6 +47,14 @@
           <p>
             <small><a href="https://www.facebook.com/events/515168555198781/?ref=notif&notif_t=plan_edited">DRUG</a> 20.05.2013</small>
           </p>
+          <aside class="notes" data-markdown>
+
+* intro
+* krug/sckrk/railsgirls
+* Hollywood Principle -> Dependency Injection
+* dependor
+* maly railsowy projekt bez DI
+          </aside>
         </section>
 
         <section>
@@ -59,7 +67,6 @@
             <img src="img/hotel.jpg"/>
           </section>
         </section>
-
         <section>
           <h2>People</h2>
 <pre><code class="ruby">class PeopleController
@@ -73,6 +80,11 @@
     PersonRepository.new(current_trip)
   end
 end</code></pre>
+          <aside class="notes" data-markdown>
+
+* izolacja od bazy
+* repozytoria tworzone manualnie w kontrolerze
+          </aside>
         </section>
 
         <section>
@@ -93,16 +105,32 @@ end</code></pre>
     RoomAssignments.new(person_repository, room_repository)
   end
 end</code></pre>
+          <aside class="notes" data-markdown>
+
+* na tyle wazna abstrakcja, ze zasluguje na wlasne repo
+* zalezy od person i room repo
+* decyzja o wszyskiwaniu przez konstruktor = HP
+          </aside>
         </section>
 
         <section>
             <section>
               <h2>Hollywood Principle</h2>
               <p>don't call us, we'll call you</p>
+              <aside class="notes" data-markdown>
+
+* kod oczekuje zaleznosci, a nie je tworzy
+* metafora IoC
+              </aside>
             </section>
             <section>
               <h3>Inversion of Control</h3>
               <p>Dependency Injection</p>
+              <aside class="notes" data-markdown>
+
+* mozna odwrocic kontrole nad zaleznosciami i kontrola w programi
+* nad zaleznosciami = DI
+              </aside>
             </section>
             <section>
               <h3>Benefits</h3>
@@ -111,6 +139,13 @@ end</code></pre>
                 <li class="fragment">testability</li>
                 <li class="fragment">brittle tests</li>
               </ul>
+              <aside class="notes" data-markdown>
+
+* niczego nie zamienialismy
+* poprawia testowanie, ale nie az tak w jak w Javie/C#
+* stabilnosc testow w izolacji
+* to bylo reczne DI
+              </aside>
             </section>
         </section>
 
@@ -127,6 +162,14 @@ end</code></pre>
 
 <pre class="fragment"><code class="ruby"> # noop
 </code></pre>
+              <aside class="notes" data-markdown>
+
+* do tego momentu tworzylismy wszystkie zaleznosci recznie
+* ten kod jest dosyc powtarzalny
+* chcialbym zeby go nie bylo
+* odrobina meta programowania
+* convention over configuration
+              </aside>
           </section>
 
           <section>
@@ -141,6 +184,12 @@ end</code></pre>
   end
 end
 </code></pre>
+            <aside class="notes" data-markdown>
+
+* jedyny problem to glebokie zaleznosci
+* wlasciwie Injector jest rozwiazaniem tego problemu
+* zmienilismy sposob tworzenia, musi zmienic sie kontroler
+            </aside>
           </section>
         </section>
 
@@ -156,6 +205,12 @@ end</code></pre>
 end</code></pre>
 
 <pre class="fragment"><code class="ruby">inject :room_assignments</code></pre>
+            <aside class="notes" data-markdown>
+
+* nie mamy plenej wladzy na kontrolerem
+* nie mozemy wstrzykiwac przez kontroler -> definiujemy metode ktora tworzy Injector
+* znow powtarzamy sie
+            </aside>
           </section>
           <section>
             <h3>a little bit of config</h3>
@@ -166,7 +221,10 @@ end</code></pre>
     Injector.new(current_trip)
   end
 end</code></pre>
+            <aside class="notes" data-markdown>
 
+* nalezy podac zaleznosci ktore nie sa tworzone automatycznie
+            </aside>
           </section>
         </section>
 
@@ -186,6 +244,12 @@ end</code></pre>
 <pre class="fragment"><code class="ruby">class RoomAssignments
   takes :person_repository, :room_repository
 end</code></pre>
+            <aside class="notes" data-markdown>
+
+* duuuzo kodu na 2 zaleznosci
+* skraca i sprawia, ze zaleznosci sa widoczne
+* warto wspomniec o tym, ze usuwa zaleznosc od kolejnosci
+            </aside>
         </section>
 
         <section>
@@ -194,14 +258,14 @@ end</code></pre>
             <li class="fragment"><a href="http://github.com/psyho/dependor">dependor on github</a></li>
             <li class="fragment">makes dependecies visible</li>
             <li class="fragment">loose coupling always helps with testing</li>
-            <li class="fragment">emphasies composability</li>
             <li class="fragment">helps with deep dependencies</li>
+            <li class="fragment">emphasies composability</li>
           </ul>
         </section>
 
         <section>
-          <h1>THE END</h1>
-          <h3>By Pawel Pierzchala</h3>
+          <h2>Thanks</h2>
+          <p>Any questions?</p>
         </section>
       </div>
     </div>
